@@ -1,0 +1,13 @@
+{
+  "root": {
+    "password": "",
+    "salt": "",
+    "boottime": 600,
+    "concurrents": 10,
+    "created_by": "system",
+    "expiry": 1753401600,
+    "attacks": 0,
+    "first": 1,
+    "otp": ""
+  }
+}
