@@ -1,9 +1,9 @@
 # An SSN copy, made just to fun XD
-## maked with:
+## made with:
 ![](https://img.shields.io/badge/PYTHON-1a1a1a?style=for-the-badge&logo=python&logoColor=a436ff)
 
 Some features is not fully ended, because i'm working on it slower than the normal
-but heres the features i already maked:
+but heres the features i already made:
 
 - Easily modify banners(join banner and command banners)
 - Easily put new commands
@@ -13,6 +13,6 @@ but heres the features i already maked:
 - Cnc info scrapper(name, motd[soon], uptime)
 - Easy color modifications
 - 2FA
-- etc(i dont remember all shits i maked)
+- etc(i dont remember it all)
 
-## just that, if u want to use it, have fun to modify whatever u need, but not claim as ur shit pls
+## just that, if u want to use it, have fun to modify whatever u need
