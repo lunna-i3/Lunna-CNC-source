@@ -16,40 +16,48 @@
  reload                 # Reload the cnc assets
  users                  # Show the users options.
  erase                  # To remove attacks(ongoing or on logs)
- set                    # to modify somethings without going to the server
+ set                    # to modify something without going to the server
+
+
+# ~> Commands that cant be remade:
+
+
+ ongoing                # cant be remade on the banners part(u can modify it on code if u want) 
+ debug                  # cant be remade on the banners part(u can modify it on code if u want)
+
 
 # ~> funnel.json / attack informations
 
 
+ {LEN}                  # The len number that was used (Example: 512)
+ {GEO}                  # The geolocation/default geolocation will go here (Example: BR)
+ {RPS}                  # The requests per second/default requests per second will go here (Example: 100)
  {HOST}                 # The targeted host (Example: 70.70.70.70)
  {PORT}                 # The targeted port (Example: 80)
  {TIME}                 # The attack duration (Example: 20)
  {METHOD}               # The method that was used (Example: HTTP-NODUS)
  {CONCURRENTS}          # The concurrents/default concurrents will go here (Example: 1)
- {LEN}                  # The len number that was used (Example: 512)
- {GEO}                  # The geolocation/default geolocation will go here (Example: BR)
- {RPS}                  # The requests per second/default requests per second will go here (Example: 100)
 
 
 # ~> response type = string
 
 
- <&spinner>             # Var to an spinner [- / | \ -] (Only can be used the title)
- <&user.name>           # Return the current user name
- <&user.uptime>         # Return how many time user is logged
- <&user.until_expiry>   # Return How much time the customer have until expiry (Example: 31 days)
- <&user.createdby>      # 
- <&user.latest.attacks> # 
- <&cnc.uptime>          # Return How long the CNC has been online for (Example: 21 days)
- <&cnc.name>            # Return CNC name set in the Name section of Settings > config.json
+ <&spinner>             # Var to an spinner [- / | \ -] (only used on title)
+ <&user.name>           # Returns the current user name
+ <&user.uptime>         # Returns how many time user is logged
+ <&user.until_expiry>   # Returns How much time the customer have until expiry (Example: 31 days)
+ <&user.createdby>      # Returns who created the user account
+ <&user.latest.attacks> # returns user's latest attack
+ <&cnc.uptime>          # Returns How long the CNC has been online for (Example: 21 days)
+ <&cnc.name>            # Returns CNC name set in the Name section of Settings > config.json
 
 
 # ~> response type = int
 
  
- <&user.count.active>   #
- <&user.count.total>    #
- <&user.count.expire>   #
+ <&user.count.active>   # Returns how many active accounts the cnc have
+ <&user.count.total>    # Returns how many accounts the cnc have
+ <&user.count.expire>   # Returns how many expired accounts the cnc have
  <&user.running>        # Return how many concurrents the user is using
  <&user.boottime>       # Return the max boottime of the user
  <&user.concurrents>    # Return the max concurrents of the user
@@ -87,7 +95,8 @@
  <%color.bg.cyan>       #
  <%color.reset>         #
  <%clear>               # Clear the entire screen.
- # u can also use &x1b(escape byte) to put whatever color u want ma boy
+ 
+ :> u can also use &x1b or /x1b(escape byte) to put whatever color u want, honey
 
 
 # ~> security level for your accounts (Settings > configs.json > security_level)
@@ -95,8 +104,6 @@
 
  0                      # No captcha.
  1                      # Math captcha.
- 2                      # Ascii text captcha.
- 3                      # Image ascii captcha.
- 4                      # 2fa via auth app, Just will be showed to accounts who has that singned.
-
-# ~>
+ 2                      # ASCII text captcha.
+ 3                      # ASCII image captcha.
+ 4                      # 2fa via OTP.
