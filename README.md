@@ -16,3 +16,5 @@ but heres the features i already made:
 - etc(i dont remember it all)
 
 ## just that, if u want to use it, have fun to modify whatever u need
+
+root password is lunna btw ;b
