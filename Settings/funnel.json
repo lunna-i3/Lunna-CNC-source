@@ -1,18 +1,23 @@
 {
+  "prefix": ".",
+  "minimum_time": 10,
 	"methods":[
 		{
 			"name": "udpg",
 			"api": [""],
 			"moderation": {
-				"limitattacktime": false,
-				"maxtime":0,
-				"limit_concs_per_user": 1,
-				"limit_concs_on_cnc": 1,
+				"limit_attacktime": false,
 				"just_domains": false,
 				"just_ips": false,
-				"defaultport": 53,
-				"adminmethod": false,
-				"vipmethod": false
+				"allow_length": false,
+				"admin_method": false,
+				"vip_method": false,
+				"default_port": 53,
+				"max_time": 0,
+				"default_lenght": 128,
+				"max_lenght": 512,
+				"limit_concs_per_user": 1,
+				"limit_concs_on_cnc": 3
 			}
 		}
 	]
