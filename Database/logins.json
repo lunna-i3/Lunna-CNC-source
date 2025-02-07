@@ -1,7 +1,7 @@
 {
   "root": {
-    "password": "",
-    "salt": "",
+    "password": "7f0e8758b4b07007bce3d35429515bdaa544ccbed44f28cbbf83036e19155392114cbfc9924c7270b9a0b7389b3b4e53be096e58ffde1b9a427b0bd441fba5b8",
+    "salt": "c2",
     "boottime": 600,
     "concurrents": 10,
     "created_by": "system",
