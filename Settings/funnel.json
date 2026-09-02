@@ -1,17 +1,21 @@
 {
   "prefix": ".",
   "minimum_time": 10,
-	"methods":[
-		{
-			"name": "udpg",
-			"api": [""],
+  "maximum_concurrents_on_cnc": 10,
+	"methods":{
+		"udpg": {
+			"description": "UDP flood",
+			"permissions": [],
+			"api": [
+				"http://example.com/api/launch?key=11sda-123x-1930-xa9nx&method=udp&host={HOST}&port={PORT}&time={TIME}"
+			],
 			"moderation": {
 				"limit_attacktime": false,
 				"just_domains": false,
-				"just_ips": false,
+				"just_ips": true,
 				"allow_length": false,
-				"admin_method": false,
-				"vip_method": false,
+				"allow_rps": false,
+				"allow_geolocation": false,
 				"default_port": 53,
 				"max_time": 0,
 				"default_lenght": 128,
@@ -19,6 +23,44 @@
 				"limit_concs_per_user": 1,
 				"limit_concs_on_cnc": 3
 			}
+		},
+		"http": {
+			"description": "HTTP flood",
+			"permissions": [],
+			"api": [],
+			"moderation": {
+				"limit_attacktime": false,
+				"just_domains": true,
+				"just_ips": false,
+				"allow_length": false,
+				"allow_rps": false,
+				"allow_geolocation": false,
+				"default_port": 53,
+				"max_time": 0,
+				"default_lenght": 128,
+				"max_lenght": 512,
+				"limit_concs_per_user": 1,
+				"limit_concs_on_cnc": 3
+			}
+		},
+		"http-vip": {
+			"description": "HTTP vip flood",
+			"permissions": ["vip"],
+			"api": [],
+			"moderation": {
+				"limit_attacktime": false,
+				"just_domains": true,
+				"just_ips": false,
+				"allow_length": false,
+				"allow_rps": true,
+				"allow_geolocation": false,
+				"default_port": 80,
+				"max_time": 0,
+				"default_lenght": 128,
+				"max_lenght": 512,
+				"limit_concs_per_user": 1,
+				"limit_concs_on_cnc": 3
+			}
 		}
-	]
+	}
 }

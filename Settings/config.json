@@ -1,15 +1,30 @@
 {
-	"security_level": 0,
-	"cnc_name": "Lunna Source",
-	"cnc_motd": "[<&spinner>] uptime: <&cnc.uptime> | Welcome to <&cnc.name> | [<&user.running>/<&user.concurrents>] | @imlumina",
+	"cnc": {
+		"port": 1337,
+		"name": "lunna V2",
+		"security_level": 0,
+		"minimun_time_between_commands": 0.2,
+		"MOTD": "[<&spinner>] uptime: <&cnc.uptime> | Welcome to <&cnc.name> | [<&user.running>/<&user.concurrents>] | @uc4n",
+		"default_banners": {
+			"welcome": "banner.tfx",
+			"sent_attack": "attack_sent.tfx"
+		},
+		"ongoing_color": "<%color.bright.magenta>"
+	},
+	"fakebots": {
+		"enabled": false, 
+		"delay": 10,
+		"chance": 30,
+		"randomizer": 5,
+		"minimum":300,
+		"maximum":500
+	},
 	"superusers": [
 		"root"
 	],
-	"vips": [],
-	"commands": [
-		"methods",
-		"help",
-		"banner"
-	],
-	"blacklist": []
+	"errors": {
+		"403": "<%color.red>Permission denied<%color.reset>",
+		"404": "<%color.red>Not found<%color.reset>",
+		"500": "<%color.red>Something not worked...<%color.reset>"
+	}
 }

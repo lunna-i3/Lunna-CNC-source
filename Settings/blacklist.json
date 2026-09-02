@@ -1,0 +1,63 @@
+{ 
+    "blacklist":
+    [
+        {
+            "string":"*.gov",
+            "reason":"government"
+        },
+        {
+            "string":"*.gov.br",
+            "reason":"government"
+        },
+        {
+            "string":"*.gob",
+            "reason":"government"
+        },
+        {
+            "string":"*.gov.ru",
+            "reason":"government"
+        },
+        {
+            "prefix":"103.95.220.0",
+            "CIDR":22,
+            "reason":"Dstat alert"
+        },
+        {
+            "prefix":"101.64.0.0",
+            "CIDR":13,
+            "reason":"Dstat alert"
+        },
+        {
+            "prefix":"117.24.0.0",
+            "CIDR":13,
+            "reason":"Dstat alert"
+        },
+        {
+            "prefix":"115.231.175.0",
+            "CIDR":25,
+            "reason":"Dstat alert"
+        },
+        {
+            "prefix":"180.188.16.0",
+            "CIDR":20,
+            "reason":"Dstat alert"
+        },
+        {
+            "prefix":"43.240.204.0",
+            "CIDR":22,
+            "reason":"Dstat alert"
+        },
+        {
+            "string":"*google.com",
+            "reason":"Use your unique braincell please"
+        },
+        {
+            "string":"1.1.*",
+            "reason":"Use your unique braincell please"
+        },
+        {
+            "string":"8.8.*",
+            "reason":"Use your unique braincell please"
+        }
+    ]
+}

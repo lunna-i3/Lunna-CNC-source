@@ -1,0 +1,26 @@
+{
+	"commands": {
+		"attack": {
+			"permissions": [],
+			"banner": "attack.tfx"
+		},
+		"help": {
+			"permissions": [],
+			"alias": ["?"],
+			"banner": "help.tfx"
+		},
+		"user": {
+			"banner": "user.tfx"
+		},
+		"banner": {
+			"banner": "banner.tfx"
+		},
+		"admin": {
+			"permissions": ["admin"] 
+		},
+		"vip": {
+			"note": "you dont need to put: permissions on a command made to everyone use.",
+			"permissions": ["vip"] 
+		}
+	}
+}
