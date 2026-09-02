@@ -1,0 +1,6 @@
+paramiko
+pyotp
+requests
+ipaddress
+qrcode
+pyfiglet

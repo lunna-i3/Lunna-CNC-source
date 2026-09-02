@@ -1,22 +1,21 @@
 # Lunna CNC source
-# an free and open source ssn copy
+# an free and open source Command and Control server made in python
 
 # ~> banners and customization (Banners/ & Settings/)
 
- U can modify the join banner in the Banners page, and create banners for additional commands
+ You can modify the join banner in the Banners page, and create banners for additional commands
  The cnc source from default comes with just a help command banner and join banner
  with the command already attached
- U can modify the command banner in Banners or create another commands in Settings > config.json > commands 
+ same with commands banner in Banners/ or create another commands in Settings > config.json > commands 
  To create a main banner(banner when u login on the cnc) u can create a .tfx file on Banners/ called "banner"
  To modify the command line banner, create a cmd_line tfx file and reload the cnc
 
 # ~> Super user commands
 
 
- reload                 # Reload the cnc assets
- users                  # Show the users options.
- erase                  # To remove attacks(ongoing or on logs)
- set                    # to modify something without going to the server
+ reload                 # Reload the cnc assets, configurations, commands and funnel
+ users                  # Show the users options.(not fully coded yet)
+ erase                  # To remove attacks(not coded yet)
 
 
 # ~> Commands that cant be remade:
@@ -29,25 +28,24 @@
 # ~> funnel.json / attack informations
 
 
- {LEN}                  # The len number that was used (Example: 512)
- {GEO}                  # The geolocation/default geolocation will go here (Example: BR)
- {RPS}                  # The requests per second/default requests per second will go here (Example: 100)
- {HOST}                 # The targeted host (Example: 70.70.70.70)
- {PORT}                 # The targeted port (Example: 80)
- {TIME}                 # The attack duration (Example: 20)
- {METHOD}               # The method that was used (Example: HTTP-NODUS)
- {CONCURRENTS}          # The concurrents/default concurrents will go here (Example: 1)
+ {LEN}                  # len number that was used (Example: 512)
+ {GEO}                  # geolocation (Example: BR)
+ {RPS}                  # requests per second (Example: 100)
+ {HOST}                 # targeted host (Example: 70.70.70.70)
+ {PORT}                 # targeted port (Example: 80)
+ {TIME}                 # attack duration (Example: 20)
+ {METHOD}               # method that was used (Example: HTTP-NODUS)
+ {CONCURRENTS}          # concurrents/default concurrents will go here (Example: 1)
 
 
 # ~> response type = string
 
 
- <&spinner>             # Var to an spinner [- / | \ -] (only used on title)
+ <&spinner>             # Var to an spinner [- / | \ -] (only use on titles)
  <&user.name>           # Returns the current user name
- <&user.uptime>         # Returns how many time user is logged
+ <&user.uptime>         # Returns how much time user is logged
  <&user.until_expiry>   # Returns How much time the customer have until expiry (Example: 31 days)
  <&user.createdby>      # Returns who created the user account
- <&user.latest.attacks> # returns user's latest attack
  <&cnc.uptime>          # Returns How long the CNC has been online for (Example: 21 days)
  <&cnc.name>            # Returns CNC name set in the Name section of Settings > config.json
 
@@ -55,12 +53,12 @@
 # ~> response type = int
 
  
- <&user.count.active>   # Returns how many active accounts the cnc have
- <&user.count.total>    # Returns how many accounts the cnc have
- <&user.count.expire>   # Returns how many expired accounts the cnc have
- <&user.running>        # Return how many concurrents the user is using
- <&user.boottime>       # Return the max boottime of the user
- <&user.concurrents>    # Return the max concurrents of the user
+ <&users.count>           # Returns the actives users on the cnc 
+ <&user.running>          # Return how many concurrents the user is using
+ <&cnc.running>           # Return how many concurrents are being used on the cnc
+ <&cnc.globalconcurrents> # Return how many concurrents can be used on the entire cnc
+ <&user.boottime>         # Return the max boottime of the user
+ <&user.concurrents>      # Return the max concurrents of the user
 
 
 # ~> utils, response type = ANSI
@@ -94,9 +92,9 @@
  <%color.bg.yellow>     #
  <%color.bg.cyan>       #
  <%color.reset>         #
+ :> u can also use &x1b or \x1b(escape byte) to put whatever color u want
+
  <%clear>               # Clear the entire screen.
- 
- :> u can also use &x1b or /x1b(escape byte) to put whatever color u want, honey
 
 
 # ~> security level for your accounts (Settings > configs.json > security_level)
