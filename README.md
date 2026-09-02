@@ -14,5 +14,6 @@ but here's the features i already made:
 Just send me a message on discord: *@uc4n*
 
 Check the *setup.txt* file
+
 on first logon:
 root:lunna
