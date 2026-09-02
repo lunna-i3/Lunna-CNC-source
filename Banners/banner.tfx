@@ -1,22 +1,17 @@
-<%color.bright.magenta>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⢠⠊⠁⠀⠀⡜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⡰⠁⠀⠀⠀⠀⢇⠀⠀⠀⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠠⡞⢀⣉⠁⠀⠈⠁⠘⠠⡀⢸⠈⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ -------------------------
-⠀⠀⠀⠰⣞⠄⠒⠈⠉⠉⠐⠂⠀⠀⠈⠙⡀⠰⡀⠀⠀⠀⠀⠀⢀⣠⡴⣞  ╦    ╦ ╦  ╔╗╔  ╔╗╔  ╔═╗
-⠀⠀⢀⡜⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⣀⠼⠤⠤⠀⠐⢊⡴⠊⠀⣼  ║    ║ ║  ║║║  ║║║  ╠═╣
-⠀⠀⠮⢤⢒⠒⣒⠒⡲⠖⣒⡒⠁⠀⢀⠀⠀⠀⠀⠀⠀⠀⢠⡿⠁⠀⠀⡿  ╩═╝  ╚═╝  ╝╚╝  ╝╚╝  ╩ ╩
-⠀⠀⣤⠚⠁⡜⢁<%color.bright.blue>⢞⣙<%color.bright.magenta>⡠⠊⠀⠀⡴⠟⠻⢷⣦⡀⠀⠀⢀⢧⠁⠀⠀⡜⠇ -----------CNC-----------
-⠀⢼⠁⠀⢸⠀<%color.bright.blue>⠈⠸<%color.bright.magenta>⣺⠁⠀⠀⠈⠀⠀⠀⠀⠙⢻⡆⢀⠌⠎⠀⢀⢎⠎⠀
-⠀⢸⠀⠀⣀⠣⠼⠤⠁⠀⠀⡀<%color.bright.blue>⢀⣆⣀⣀<%color.bright.magenta>⠀⠀⡄⣇⡝⠹⠤⠒⡡⠂⠀⠀
-⠀⠀⢷⠭⠤⠀⣀⡀⠀⠀⠀<%color.bright.blue>⠉⠋⠉⠛⠿⣷⣄<%color.bright.magenta>⠃⠹⣄⣀⡠⠾⠃⠀⠀⠀
-⠀⠀⢎⢦⡀⠀⠀⢈⡱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡾⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠈⣢⢬⡶⡉⠀⠀⠀⠀⡰⠋⠀⠀⠀⠀⢀⠠⢺⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⣿⠁⠊⠀⠈⠱⠒⠂⠉⣀⠠⠤⠐⠒⠉⠁⢀⣶⠗⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⢫⠗⢄⣀⠔⠁⠀⠈⠁⠀⠀⠀⠀⠀⠀⠰⣼⠏⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⢀⠟⠉⠙⠀⠉⠒⠤⡀⠀⠀⠀⠀⠀⠀⠀⣤⠑⠤⠤⢤⣤⣀⡀⠀⠀⠀
-⡰⠁⠀⠀⠀⠀⠀⠀⠀⠈⠢⡀⠒⠤⢀⣀⣠⠏⠀⠀⠀⠀⠀⠉⢶⡀⠀⠀
-⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠑⡀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠇⠀<%color.reset>
+<%clear>Welcome to <%color.bright.red>lunna<%color.reset> | sessions: <%color.bright.red><&users.count><%color.reset> | cnc concurrents: <%color.bright.red><&cnc.running><%color.reset>/<%color.bright.red><&cnc.globalconcurrents><%color.reset>
+           v2.0 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀<%color.bright.red>⢀⣤⣤⣄⠀<%color.reset>⠀⢀⣀⣀⡀⠀⠀⠀⠀
+                ⠀⠀⠀⢠⡾⠛⠳⠶⣤⣀⣠⣤⣤<%color.bright.red>⣴⡟⠁⠀⠙⣷<%color.reset>⠟⠋⠉⠉⢿⡀⠀⠀⠀
+                ⠀⠀⠀⣾⠁⠀⠀⠀⠀⠉⠀⠀⠀<%color.bright.red>⡿⠀⢠⣟⣿⠿⠳⢦⣤⡴⣼⣇⠀⠀⠀<%color.reset>
+                ⠀⠀⠀⢻⣤⠀⠀⠀⠀⠀⠀⠀⠀<%color.bright.red>⢿⣄⣀⣽⣏⠀⠀⢸⣷⡄⠀⣿⠀⠀⠀<%color.reset>
+                ⠀⠀⠀⣼⠃⠀⠀⠀⠀⠀⠀⠀⠀<%color.bright.red>⠀⠀⠉⠀⠉⠓⢾⡟⠛⢁⣼⣟⠀⠀⠀<%color.reset>
+                ⠀⢀⣼⣇⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀<%color.bright.red>⠙⠿⠿⠏<%color.reset>⣽⢤⠀⠀
+                ⣀⣈⣷⣏⣁⠀⠀⢀⠀⠉⠙⠻⣶⣾⣳⣶⠟⠉⠁⢀⠀⠀⠀⠶⢻⡟⠒⠒
+                ⠀⠀⠸⣇⣀⠀⠀⠛⠉⠂⠀⢀⡿⣉⣉⢿⡄⠀⠒⠉⠋⠀⠀⠠⣼⠧⢤⠀
+                ⠀⠐⠛⠻⣍⣀⡀⠀⠀⢀⣠⠞⠙⠧⠼⠈⠳⣄⡀⠀⠀⠀⣠⣴⣟⡀⠀⠀
+                ⠀⠀⣠⠴⠛⢿⣭⠿⠿⢯⡅⠀⠀⠀⠀⠀⠀⣠⣭⣩⣭⣭⣿⣋⠈⠙⠂⠀
+                ⠀⠀⠀⠀⢠⡟⠁⠀⠀⠀⣿⠶⠶⠶⠤⠶⣾⠇⠀⠘⣧⠀⠀⢹⡇⠀⠀⠀
+                ⠀⠀⠀⠀⠸⣇⠀⠀⣰⠾⠋⠀⠀⠀⠀⠀⣧⡀⠀⠀⢿⣄⣤⡾⠁⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠈⠛⠛⠁⠀⠀⠀⠀⠀⠀⠀⠈⠛⠒⠒⠚⠋⠁⠀⠀⠀⠀⠀<%color.reset>
 
-@imlumina  - <%color.bright.blue>discord<%color.reset>
-mwah, be happy ^^
+@uc4n - <%color.bright.blue>discord<%color.reset>
+be happy!

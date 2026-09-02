@@ -1,2 +1,1 @@
- <%color.red>┌───┤ <%color.cyan><&user.name><%color.reset> @ <%color.cyan>botnet<%color.reset>
- <%color.red>└─<%color.yellow>#<%color.reset> 
+<%color.bright.red><&user.name><%color.reset> @ <%color.bright.red>lunna<%color.reset> <%color.yellow>#<%color.reset> 

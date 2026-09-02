@@ -1,0 +1,7 @@
+help        - this command
+banner      - shows banner
+clear       - clears the screen
+echo        - echoes something in the screen
+history     - user command history
+attack      - attack methods menu
+check-host  - checks if an ip/domain/site is offline

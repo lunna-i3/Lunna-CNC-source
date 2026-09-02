@@ -1,0 +1,9 @@
+layer 4
+udpg    - udp flood
+
+layer 7
+http      - plain http flood for unprotected targets
+http-vip  - plain http flood for unprotected targets
+
+ex: test1 <ip>    <port> <duration>
+    test1 1.1.1.1 53     60

