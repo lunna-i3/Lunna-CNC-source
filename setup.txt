@@ -6,7 +6,7 @@ cd Lunna-CNC-source
 pip install -r requirements.txt
 
 # to generate the ssh key needed to paramiko
-ssh-keygen -t rsa -b 4096 -f server.key
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
 
 # now, just run and configure! see more in "how to use.txt"
 ```
